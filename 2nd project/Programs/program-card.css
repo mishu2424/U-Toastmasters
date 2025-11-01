@@ -34,6 +34,12 @@ body {
   .program-cards__grid {
     grid-template-columns: 1fr;
   }
+  .program-card {
+    min-height: 480px; /* Reduced for mobile */
+  }
+  .program-card__flipper {
+    min-height: 480px;
+  }
 }
 @media (min-width: 481px) and (max-width: 768px) {
   .program-cards__grid {
@@ -58,7 +64,7 @@ body {
   justify-self: center;
   height: fit-content;
   perspective: 1200px;
-  min-height: 520px; /* Ensures consistent height for flip */
+  min-height: 520px;
 }
 
 /* Flip Inner Container */
@@ -77,8 +83,9 @@ body {
   }
 }
 
-/* When flipped */
-.program-card[aria-expanded="true"] .program-card__flipper {
+/* When flipped - check button state, not card */
+.program-card__btn--secondary[aria-expanded="true"] ~ .program-card__flipper,
+.program-card:has(.program-card__btn--secondary[aria-expanded="true"]) .program-card__flipper {
   transform: rotateY(180deg);
 }
 
@@ -131,6 +138,7 @@ body {
     transition: none !important;
   }
 }
+
 /* Content */
 .program-card__content {
   padding: 0.75rem 0.75rem 1rem 1rem;
@@ -144,6 +152,7 @@ body {
   margin-bottom: 0.5rem;
 }
 
+/* FIXED: Category badges - improved contrast for WCAG AA */
 .program-card__category {
   display: inline-block;
   background: #0077ff;
@@ -157,22 +166,28 @@ body {
   margin-bottom: 0.35rem;
 }
 .program-card__category--robotics {
-  background: #0077ff;
+  background: #0056b3; /* Darker blue for better contrast */
+  color: #fff;
 }
 .program-card__category--art {
-  background: #e91e63;
+  background: #c2185b; /* Darker pink */
+  color: #fff;
 }
 .program-card__category--speaking {
-  background: #ff9800;
+  background: #e65100; /* Darker orange */
+  color: #fff;
 }
 .program-card__category--stem {
-  background: #2e8b57;
+  background: #1b5e20; /* Darker green */
+  color: #fff;
 }
 .program-card__category--camp {
-  background: #7b61ff;
+  background: #5e35b1; /* Darker purple */
+  color: #fff;
 }
 .program-card__category--event {
-  background: #00bcd4;
+  background: #00838f; /* Darker cyan */
+  color: #fff;
 }
 
 .program-card__title {
@@ -244,13 +259,14 @@ body {
 .program-card__btn--primary:hover {
   background: #074fcc;
 }
+/* FIXED: Secondary button contrast improved */
 .program-card__btn--secondary {
-  background: #eef4ff;
-  color: #0a47cc;
+  background: #e3ecff; /* Slightly darker background */
+  color: #003d99; /* Darker text for better contrast */
   border: 1px solid #bcd0ff;
 }
 .program-card__btn--secondary:hover {
-  background: #e3ecff;
+  background: #d4e3ff;
 }
 .program-card__btn--secondary::after {
   content: "";
@@ -261,10 +277,12 @@ body {
 .program-card:focus-within .program-card__btn--secondary::after {
   opacity: 1;
 }
+/* FIXED: Disabled state prevents mouse clicks */
 .program-card__btn--disabled {
   background: #ddd;
   color: #666;
   cursor: not-allowed;
+  pointer-events: none; /* Prevents all interactions */
 }
 
 /* Focus ring */
@@ -293,6 +311,7 @@ body {
   margin: 0;
   flex: 1;
   padding-right: 1rem;
+  outline: none; /* Remove default focus outline since it's programmatically focused */
 }
 
 .program-card__close {
@@ -319,10 +338,6 @@ body {
   margin: 0 0 1rem;
   font-size: 0.98rem;
   line-height: 1.6;
-  display: -webkit-box;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
 }
 
 .program-card__detail-list {

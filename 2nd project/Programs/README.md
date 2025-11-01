@@ -1,3 +1,5 @@
+<!-- My readme file so far -->
+
 # Program Cards Component
 
 A fully accessible, responsive card component for displaying educational programs with flip interaction. Built with vanilla HTML/CSS/JS.
@@ -224,11 +226,12 @@ Users with `prefers-reduced-motion: reduce` will see:
 When analytics callback is provided, these events fire:
 
 ```javascript
-analytics("card_flip", {
+analytics("cta_click", {
   id: "prog-robotics-dancer",
   title: "LEGO Robotics: Dancer",
   category: "robotics",
-  position: 0
+  position: 0,
+  href: "/register/robotics-dancer"
 });
 
 analytics("card_flip_back", { /* same payload */ });
